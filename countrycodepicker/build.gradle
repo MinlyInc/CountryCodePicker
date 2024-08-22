@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven-publish'
 
 group = 'com.github.joielechong'
 version = "2.4.2"
@@ -22,6 +23,23 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  afterEvaluate {
+    publishing {
+      publications {
+        // Creates a Maven publication called "release".
+        release(MavenPublication) {
+          // Applies the component for the release build variant.
+          from components.release
+
+          // You can then customize attributes of the publication as shown below.
+          groupId = 'com.github.joielechong'
+          artifactId = 'countrycodepicker'
+          version = '2.4.2'
+        }
+      }
+    }
+  }
 }
 
 dependencies {
@@ -29,6 +47,6 @@ dependencies {
 //  testImplementation 'junit:junit:4.12'
 //  api 'io.michaelrocks:libphonenumber-android:8.10.7'
 //  api 'io.michaelrocks:libphonenumber-android:8.10.16'
-  api 'io.michaelrocks:libphonenumber-android:8.12.5'
+  api 'io.michaelrocks:libphonenumber-android:8.12.20'
   implementation 'androidx.annotation:annotation:1.1.0'
 }
